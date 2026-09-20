@@ -1,0 +1,52 @@
+---
+const homes = [
+  { key: 'horizon', name: 'The Horizon', category: 'modern', tag: 'Modern', beds: '3 Bedrooms', sqm: '250 sqm', img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', alt: 'The Horizon modern house' },
+  { key: 'zen', name: 'The Zen', category: 'minimalist', tag: 'Minimalist', beds: '2 Bedrooms', sqm: '180 sqm', img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', alt: 'The Zen minimalist house' },
+  { key: 'oasis', name: 'The Oasis', category: 'villa', tag: 'Villa', beds: '4 Bedrooms', sqm: '400 sqm', img: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', alt: 'The Oasis luxury villa' },
+  { key: 'breeze', name: 'The Breeze', category: 'tropical', tag: 'Tropical', beds: '3 Bedrooms', sqm: '220 sqm', img: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', alt: 'The Breeze tropical house' },
+  { key: 'cube', name: 'The Cube', category: 'modern', tag: 'Modern', beds: '4 Bedrooms', sqm: '320 sqm', img: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', alt: 'The Cube modern house' },
+  { key: 'loft', name: 'The Loft', category: 'minimalist', tag: 'Minimalist', beds: '2 Bedrooms', sqm: '150 sqm', img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', alt: 'The Loft minimalist house' }
+];
+---
+
+<section id="homes" class="scroll-mt-20 py-24 md:py-32 px-6 lg:px-16 bg-white">
+  <div class="max-w-7xl mx-auto">
+    <h1 class="font-serif text-3xl md:text-5xl lg:text-6xl text-espresso uppercase mb-4 homes-title scroll-reveal">Home Types</h1>
+    <p class="text-lg max-w-2xl mb-8">Explore our catalog of architectural styles. Find the perfect base for your custom home.</p>
+
+    <div class="flex flex-wrap gap-3 mb-12 home-filters">
+      <button data-filter="all" data-target="homes" class="filter-pill active px-6 py-2 rounded-full bg-espresso text-white text-sm font-medium transition">All</button>
+      <button data-filter="modern" data-target="homes" class="filter-pill px-6 py-2 rounded-full border border-gray-300 text-espresso text-sm font-medium hover:bg-white transition">Modern</button>
+      <button data-filter="minimalist" data-target="homes" class="filter-pill px-6 py-2 rounded-full border border-gray-300 text-espresso text-sm font-medium hover:bg-white transition">Minimalist</button>
+      <button data-filter="villa" data-target="homes" class="filter-pill px-6 py-2 rounded-full border border-gray-300 text-espresso text-sm font-medium hover:bg-white transition">Villa</button>
+      <button data-filter="tropical" data-target="homes" class="filter-pill px-6 py-2 rounded-full border border-gray-300 text-espresso text-sm font-medium hover:bg-white transition">Tropical</button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 home-grid">
+      {homes.map((h) => (
+        <a href="#home-detail" data-category={h.category} data-key={h.key} class="home-card group cursor-pointer block">
+          <div class="rounded-3xl overflow-hidden h-48 md:h-64 lg:h-80 mb-4 relative">
+            <img src={h.img} alt={h.alt} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-espresso">{h.tag}</div>
+          </div>
+          <h3 class="font-serif text-2xl text-espresso group-hover:text-terracotta transition-colors">{h.name}</h3>
+          <p class="text-sm mt-1">{h.beds} • {h.sqm}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  :global(.dark) .filter-pill.active {
+    background-color: #e8ddd3 !important;
+    color: #1a1714 !important;
+  }
+  :global(.dark) .filter-pill:not(.active) {
+    border-color: #4a4035 !important;
+    color: #e8ddd3 !important;
+  }
+  :global(.dark) .filter-pill:not(.active):hover {
+    background-color: #302a20 !important;
+  }
+</style>

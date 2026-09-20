@@ -1,0 +1,30 @@
+---
+const reviews = [
+  { name: 'Rian & Family', role: 'Residential Client', text: '"Prosesnya sangat profesional. Dari desain 3D hingga konstruksi, semuanya sesuai dengan ekspektasi kami."', rating: 5 },
+  { name: 'Maya Indah', role: 'Villa Owner', text: '"Material yang digunakan benar-benar berkualitas. Rumah terasa sejuk dan nyaman tanpa perlu AC berlebihan."', rating: 5 },
+  { name: 'David Chen', role: 'Commercial Client', text: '"Tim RANTY sangat responsif. Setiap pertanyaan dijawab dengan cepat dan solutif."', rating: 5 },
+  { name: 'Sarah Lim', role: 'Tech Startup CEO', text: '"Office kami yang baru bikin produktivitas tim naik signifikan. Desainnya modern dan fungsional."', rating: 5 },
+  { name: 'James Tan', role: 'Loft Owner', text: '"RANTY mengubah ruang sempit ini menjadi rumah yang terasa lapang dan hangat."', rating: 5 },
+  { name: 'Andi & Sari', role: 'Young Family', text: '"Dari awal konsultasi sampai serah terima, semuanya lancar. Rumah impian kami jadi kenyataan!"', rating: 5 },
+];
+---
+
+<div class="scroll-velocity-mb py-12 md:py-16 overflow-hidden bg-offwhite">
+  <div class="scroll-velocity-track flex items-stretch gap-6 will-change-transform">
+    {[...reviews, ...reviews, ...reviews].map((r) => (
+      <div class="review-card flex-shrink-0 w-[280px] md:w-[380px] bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between">
+        <div>
+          <div class="flex gap-1 text-terracotta text-sm mb-3">{'★'.repeat(r.rating)}</div>
+          <p class="text-sm text-warmgrey mb-4 leading-relaxed">{r.text}</p>
+        </div>
+        <div class="flex items-center gap-3 border-t border-gray-100 pt-4">
+          <div class="w-10 h-10 rounded-full bg-espresso/10 flex items-center justify-center text-espresso font-bold text-xs">{r.name.split(' ')[0][0]}</div>
+          <div>
+            <p class="text-xs font-bold text-espresso">{r.name}</p>
+            <p class="text-[10px] text-warmgrey">{r.role}</p>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

@@ -1,0 +1,93 @@
+---
+---
+<section id="home-detail" class="scroll-mt-20 bg-offwhite">
+  <div class="relative h-[70vh] w-full">
+    <img id="hd-hero-img" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="The Horizon modern house" class="w-full h-full object-cover">
+    <div class="absolute inset-0 bg-black/40"></div>
+    <div class="absolute bottom-0 left-0 w-full p-8 lg:p-16 bg-gradient-to-t from-black/80 to-transparent">
+      <h1 id="hd-title" class="font-serif text-3xl md:text-5xl lg:text-7xl text-white uppercase mb-2">The Horizon</h1>
+      <p id="hd-subtitle" class="text-white/80 text-lg">Modern Series • 250 sqm</p>
+    </div>
+  </div>
+
+    <div class="bg-espresso text-white py-4 md:py-6 px-4 md:px-6 lg:px-16">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-6">
+      <div><span class="block text-xs uppercase tracking-widest text-white/50">Luas Bangunan</span><span id="hd-luas" class="font-serif text-xl"><span class="hd-luas-val count-up-value" data-count="250" data-suffix=" m²">0</span></span></div>
+      <div><span class="block text-xs uppercase tracking-widest text-white/50">Kamar Tidur</span><span id="hd-kamar" class="font-serif text-xl"><span class="hd-kamar-val count-up-value" data-count="3">0</span></span></div>
+      <div><span class="block text-xs uppercase tracking-widest text-white/50">Kamar Mandi</span><span id="hd-mandi" class="font-serif text-xl"><span class="hd-mandi-val count-up-value" data-count="2">0</span></span></div>
+      <div><span class="block text-xs uppercase tracking-widest text-white/50">Harga Mulai</span><span id="hd-harga" class="font-serif text-xl">$<span class="hd-harga-val count-up-value" data-count="150" data-separator=",">0</span></span></div>
+      <a href="#contact" class="bg-white text-espresso px-8 py-3 rounded-full text-sm font-bold tracking-widest uppercase hover:bg-terracotta hover:text-white transition-all">Book Consultation</a>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 lg:px-16 py-16">
+    <h2 class="font-serif text-2xl md:text-3xl text-espresso mb-8">Interior & Exterior Gallery</h2>
+    <div id="hd-gallery" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { homeData } from '../data/siteData';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function animateCountUp(el: HTMLElement, target: number, suffix = '', prefix = '', separator = '') {
+    const obj = { val: 0 };
+    gsap.to(obj, {
+      val: target,
+      duration: 2,
+      ease: 'power2.out',
+      onUpdate: () => {
+        let val = Math.round(obj.val);
+        if (separator) val = Number(val.toLocaleString('en-US'));
+        el.textContent = prefix + (separator ? val.toLocaleString('en-US') : val) + suffix;
+      }
+    });
+  }
+
+  function loadHomeDetail(key: string) {
+    const data = homeData[key];
+    if (!data) return;
+
+    document.getElementById('hd-title')!.textContent = data.title;
+    document.getElementById('hd-subtitle')!.textContent = data.subtitle;
+    document.getElementById('hd-hero-img')!.setAttribute('src', data.heroImage);
+    document.getElementById('hd-hero-img')!.setAttribute('alt', data.heroAlt);
+
+    const gallery = document.getElementById('hd-gallery');
+    if (gallery) {
+      gallery.innerHTML = data.gallery.map(item =>
+        `<img src="${item.src}" alt="${item.alt}" class="rounded-2xl w-full h-48 md:h-64 object-cover">`
+      ).join('');
+    }
+
+    const luasNum = parseInt(data.luas);
+    const kamarNum = parseInt(data.kamar);
+    const mandiNum = parseInt(data.mandi);
+    const hargaStr = data.harga.replace(/[$,]/g, '');
+    const hargaNum = parseInt(hargaStr);
+
+    const luasEl = document.querySelector('.hd-luas-val') as HTMLElement;
+    const kamarEl = document.querySelector('.hd-kamar-val') as HTMLElement;
+    const mandiEl = document.querySelector('.hd-mandi-val') as HTMLElement;
+    const hargaEl = document.querySelector('.hd-harga-val') as HTMLElement;
+
+    if (luasEl) { luasEl.dataset.count = String(luasNum); luasEl.dataset.suffix = ' m²'; animateCountUp(luasEl, luasNum, ' m²'); }
+    if (kamarEl) { kamarEl.dataset.count = String(kamarNum); animateCountUp(kamarEl, kamarNum); }
+    if (mandiEl) { mandiEl.dataset.count = String(mandiNum); animateCountUp(mandiEl, mandiNum); }
+    if (hargaEl) { hargaEl.dataset.count = String(hargaNum); hargaEl.dataset.separator = ','; animateCountUp(hargaEl, hargaNum, '', '$', ','); }
+  }
+
+  loadHomeDetail('horizon');
+
+  document.querySelectorAll('.home-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      e.preventDefault();
+      const key = (card as HTMLElement).dataset.key;
+      if (key) loadHomeDetail(key);
+      document.getElementById('home-detail')?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>

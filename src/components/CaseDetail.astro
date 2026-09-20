@@ -1,0 +1,105 @@
+---
+---
+<section id="case-detail" class="scroll-mt-20 py-16 md:py-24 lg:py-32 px-6 lg:px-16 bg-offwhite">
+  <div class="max-w-7xl mx-auto">
+    <h1 id="cd-title" class="font-serif text-3xl md:text-5xl lg:text-6xl text-espresso uppercase mb-4">The Alpine Retreat</h1>
+    <p id="cd-description" class="text-lg max-w-2xl mb-12">A harmonious blend of modern architecture and mountainous landscape.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+      <div class="relative rounded-3xl overflow-hidden h-64 md:h-80 lg:h-96">
+        <img id="cd-before-img" src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Before renovation" class="w-full h-full object-cover grayscale">
+        <div class="absolute top-4 left-4 bg-black/50 text-white px-4 py-2 rounded-full text-sm">Before</div>
+      </div>
+      <div class="relative rounded-3xl overflow-hidden h-64 md:h-80 lg:h-96">
+        <img id="cd-after-img" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="After renovation" class="w-full h-full object-cover">
+        <div class="absolute top-4 left-4 bg-terracotta text-white px-4 py-2 rounded-full text-sm">After</div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl max-w-2xl mx-auto -mt-8 md:-mt-32 relative z-10 mb-16 border border-gray-100">
+      <div class="grid grid-cols-3 gap-3 md:gap-6 text-center">
+        <div><p class="text-[10px] md:text-xs uppercase tracking-widest text-warmgrey mb-1">Durasi</p><p id="cd-durasi" class="font-serif text-lg md:text-2xl text-espresso"><span class="cd-durasi-num count-up-value" data-count="8">0</span> <span class="cd-durasi-suf">Bulan</span></p></div>
+        <div><p class="text-[10px] md:text-xs uppercase tracking-widest text-warmgrey mb-1">Luas</p><p id="cd-luas" class="font-serif text-lg md:text-2xl text-espresso"><span class="cd-luas-num count-up-value" data-count="450">0</span> <span class="cd-luas-suf">m²</span></p></div>
+        <div><p class="text-[10px] md:text-xs uppercase tracking-widest text-warmgrey mb-1">Budget</p><p id="cd-budget" class="font-serif text-lg md:text-2xl text-espresso">$<span class="cd-budget-num count-up-value" data-count="350">0</span><span class="cd-budget-suf">k</span></p></div>
+      </div>
+    </div>
+
+    <div class="text-center max-w-3xl mx-auto">
+      <p id="cd-quote" class="font-serif text-xl md:text-3xl italic text-espresso leading-relaxed">"RANTY tidak hanya membangun rumah, mereka menciptakan ruang di mana kenangan keluarga kami akan tumbuh."</p>
+      <p id="cd-quote-author" class="mt-6 font-bold text-espresso">— Mr. & Mrs. Smith</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { caseData } from '../data/siteData';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function animateCountUp(el: HTMLElement, target: number, suffix = '', prefix = '') {
+    const obj = { val: 0 };
+    gsap.to(obj, {
+      val: target,
+      duration: 2,
+      ease: 'power2.out',
+      onUpdate: () => {
+        el.textContent = prefix + Math.round(obj.val) + suffix;
+      }
+    });
+  }
+
+  function loadCaseDetail(key: string) {
+    const data = caseData[key];
+    if (!data) return;
+
+    document.getElementById('cd-title')!.textContent = data.title;
+    document.getElementById('cd-description')!.textContent = data.description;
+    document.getElementById('cd-quote')!.textContent = data.quote;
+    document.getElementById('cd-quote-author')!.textContent = data.quoteAuthor;
+
+    const beforeImg = document.getElementById('cd-before-img') as HTMLImageElement;
+    const afterImg = document.getElementById('cd-after-img') as HTMLImageElement;
+    if (beforeImg) { beforeImg.src = data.beforeImage; beforeImg.alt = data.beforeAlt; }
+    if (afterImg) { afterImg.src = data.afterImage; afterImg.alt = data.afterAlt; }
+
+    // Parse durasi
+    const durasiMatch = data.durasi.match(/(\d+)/);
+    const durasiNum = durasiMatch ? parseInt(durasiMatch[1]) : 0;
+    const durasiSuf = data.durasi.replace(/\d+/, '').trim();
+    const durasiNumEl = document.querySelector('.cd-durasi-num') as HTMLElement;
+    const durasiSufEl = document.querySelector('.cd-durasi-suf') as HTMLElement;
+    if (durasiNumEl) animateCountUp(durasiNumEl, durasiNum);
+    if (durasiSufEl) durasiSufEl.textContent = durasiSuf;
+
+    // Parse luas
+    const luasMatch = data.luas.match(/(\d+)/);
+    const luasNum = luasMatch ? parseInt(luasMatch[1]) : 0;
+    const luasSuf = data.luas.replace(/\d+/, '').trim();
+    const luasNumEl = document.querySelector('.cd-luas-num') as HTMLElement;
+    const luasSufEl = document.querySelector('.cd-luas-suf') as HTMLElement;
+    if (luasNumEl) animateCountUp(luasNumEl, luasNum);
+    if (luasSufEl) luasSufEl.textContent = luasSuf;
+
+    // Parse budget
+    const budgetMatch = data.budget.match(/(\d+)/);
+    const budgetNum = budgetMatch ? parseInt(budgetMatch[1]) : 0;
+    const budgetSuf = data.budget.replace(/\d+/, '').trim();
+    const budgetNumEl = document.querySelector('.cd-budget-num') as HTMLElement;
+    const budgetSufEl = document.querySelector('.cd-budget-suf') as HTMLElement;
+    if (budgetNumEl) animateCountUp(budgetNumEl, budgetNum);
+    if (budgetSufEl) budgetSufEl.textContent = budgetSuf;
+  }
+
+  loadCaseDetail('alpine');
+
+  document.querySelectorAll('.case-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      e.preventDefault();
+      const key = (card as HTMLElement).dataset.key;
+      if (key) loadCaseDetail(key);
+      document.getElementById('case-detail')?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>

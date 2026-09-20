@@ -1,0 +1,278 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import CustomerReviews from '../components/CustomerReviews.astro';
+import HomeStrip from '../components/HomeStrip.astro';
+import About from '../components/About.astro';
+import Services from '../components/Services.astro';
+import HomeTypes from '../components/HomeTypes.astro';
+import HomeDetail from '../components/HomeDetail.astro';
+import Cases from '../components/Cases.astro';
+import CaseDetail from '../components/CaseDetail.astro';
+import Process from '../components/Process.astro';
+import Materials from '../components/Materials.astro';
+import Pricing from '../components/Pricing.astro';
+import Team from '../components/Team.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <Navbar />
+  <main id="app">
+    <Hero />
+    <CustomerReviews />
+    <HomeStrip />
+    <About />
+    <Services />
+    <HomeTypes />
+    <HomeDetail />
+    <Cases />
+    <CaseDetail />
+    <Process />
+    <Materials />
+    <Pricing />
+    <Team />
+    <Testimonials />
+    <Contact />
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Hero animations
+  gsap.from('.hero-text > *', { y: 60, opacity: 0, duration: 1, stagger: 0.15, ease: 'power3.out', delay: 0.3 });
+  gsap.from('.hero-card', { y: 40, opacity: 0, duration: 1, ease: 'power3.out', delay: 0.6 });
+  gsap.from('.hero-floating-card', { y: 80, opacity: 0, duration: 1, ease: 'power3.out', delay: 0.9 });
+
+  // Home strip
+  gsap.from('.home-strip > *', {
+    scrollTrigger: { trigger: '.home-strip', start: 'top 80%' },
+    y: 40, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out'
+  });
+
+  // About
+  gsap.from('.about-content > *', {
+    scrollTrigger: { trigger: '.about-content', start: 'top 75%' },
+    y: 60, opacity: 0, duration: 0.8, stagger: 0.2, ease: 'power3.out'
+  });
+
+  // Services
+  gsap.from('.service-card', {
+    scrollTrigger: { trigger: '.service-card', start: 'top 85%' },
+    y: 60, opacity: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out'
+  });
+
+  // HomeTypes
+  gsap.from('.home-card', {
+    scrollTrigger: { trigger: '.home-card', start: 'top 85%' },
+    y: 60, opacity: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out'
+  });
+
+  // Cases
+  gsap.from('.case-card', {
+    scrollTrigger: { trigger: '.case-card', start: 'top 85%' },
+    y: 60, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out'
+  });
+
+  // Process
+  gsap.from('.process-card', {
+    scrollTrigger: { trigger: '.process-card', start: 'top 85%' },
+    y: 60, opacity: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out'
+  });
+
+  // Materials
+  gsap.from('.materials-content > *', {
+    scrollTrigger: { trigger: '.materials-content', start: 'top 75%' },
+    y: 60, opacity: 0, duration: 0.8, stagger: 0.2, ease: 'power3.out'
+  });
+
+  // Pricing
+  gsap.from('.pricing-card', {
+    scrollTrigger: { trigger: '.pricing-card', start: 'top 85%' },
+    y: 60, opacity: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out'
+  });
+
+  // Team
+  gsap.from('.team-card', {
+    scrollTrigger: { trigger: '.team-card', start: 'top 85%' },
+    y: 60, opacity: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out'
+  });
+
+  // Testimonials
+  gsap.from('.testimonials-stats > *', {
+    scrollTrigger: { trigger: '.testimonials-stats', start: 'top 80%' },
+    y: 40, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out'
+  });
+  gsap.from('.testimonial-card', {
+    scrollTrigger: { trigger: '.testimonial-card', start: 'top 85%' },
+    y: 60, opacity: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out'
+  });
+
+  // Contact
+  gsap.from('.contact-form-wrap > *', {
+    scrollTrigger: { trigger: '.contact-form-wrap', start: 'top 80%' },
+    y: 40, opacity: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out'
+  });
+  gsap.from('.contact-info-wrap > *', {
+    scrollTrigger: { trigger: '.contact-info-wrap', start: 'top 80%' },
+    y: 40, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out'
+  });
+
+  // Footer
+  gsap.from('.footer-cta > *', {
+    scrollTrigger: { trigger: '.footer-cta', start: 'top 90%' },
+    y: 40, opacity: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out'
+  });
+
+  // ===== Filter functionality =====
+  document.querySelectorAll('.filter-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      const category = (pill as HTMLElement).dataset.filter;
+      const target = (pill as HTMLElement).dataset.target;
+      if (!category || !target) return;
+
+      const containerId = target === 'homes' ? 'homes-grid' : 'cases-grid';
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      const cardSelector = target === 'homes' ? '.home-card' : '.case-card';
+      container.querySelectorAll(cardSelector).forEach(card => {
+        const el = card as HTMLElement;
+        const match = category === 'all' || el.dataset.category === category;
+        el.style.display = match ? 'block' : 'none';
+      });
+
+      const sectionEl = document.getElementById(target);
+      sectionEl?.querySelectorAll('.filter-pill').forEach(p => {
+        const pEl = p as HTMLElement;
+        const isActive = pEl.dataset.filter === category;
+        if (isActive) {
+          pEl.classList.add('bg-espresso', 'text-white', 'active');
+          pEl.classList.remove('border', 'border-gray-300', 'text-espresso');
+        } else {
+          pEl.classList.remove('bg-espresso', 'text-white', 'active');
+          pEl.classList.add('border', 'border-gray-300', 'text-espresso');
+        }
+      });
+    });
+  });
+
+  // ===== Scroll-spy =====
+  const sections = document.querySelectorAll('main > section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const visibleSections = new Map<string, number>();
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      visibleSections.set(entry.target.id, entry.isIntersecting ? entry.intersectionRatio : 0);
+    });
+    let maxRatio = 0;
+    let currentSection = '';
+    visibleSections.forEach((ratio, id) => {
+      if (ratio > maxRatio) { maxRatio = ratio; currentSection = id; }
+    });
+    if (currentSection) {
+      navLinks.forEach(link => {
+        link.classList.toggle('text-terracotta', link.dataset.page === currentSection);
+      });
+    }
+  }, { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1], rootMargin: '-80px 0px 0px 0px' });
+
+  sections.forEach(section => observer.observe(section));
+
+  // ===== Count Up Animation (reactbits.dev style) =====
+  document.querySelectorAll<HTMLElement>('.count-up-value').forEach(el => {
+    const target = parseInt(el.dataset.count || '0');
+    const suffix = el.dataset.suffix || '';
+    const prefix = el.dataset.prefix || '';
+    const duration = 2;
+
+    const obj = { val: 0 };
+
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 85%',
+      once: true,
+      onEnter: () => {
+        gsap.to(obj, {
+          val: target,
+          duration,
+          ease: 'power2.out',
+          onUpdate: () => {
+            el.textContent = prefix + Math.round(obj.val) + suffix;
+          }
+        });
+      }
+    });
+  });
+
+  // ===== Scroll Reveal (reactbits.dev style) =====
+  document.querySelectorAll<HTMLElement>('.scroll-reveal').forEach(el => {
+    const text = el.textContent || '';
+    const words = text.split(/(\s+)/).map((word, i) => {
+      if (/^\s+$/.test(word)) return word;
+      return `<span class="word">${word}</span>`;
+    }).join('');
+
+    el.innerHTML = `<p class="scroll-reveal-text">${words}</p>`;
+
+    const wordEls = el.querySelectorAll('.word');
+
+    gsap.fromTo(el,
+      { transformOrigin: '0% 50%', rotate: 3 },
+      {
+        ease: 'none', rotate: 0,
+        scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom bottom', scrub: true }
+      }
+    );
+
+    gsap.fromTo(wordEls,
+      { opacity: 0.1, willChange: 'opacity' },
+      {
+        ease: 'none', opacity: 1, stagger: 0.05,
+        scrollTrigger: { trigger: el, start: 'top bottom-=20%', end: 'bottom bottom', scrub: true }
+      }
+    );
+
+    gsap.fromTo(wordEls,
+      { filter: 'blur(4px)' },
+      {
+        ease: 'none', filter: 'blur(0px)', stagger: 0.05,
+        scrollTrigger: { trigger: el, start: 'top bottom-=20%', end: 'bottom bottom', scrub: true }
+      }
+    );
+  });
+
+  // ===== Scroll Velocity Marquee (reactbits.dev) =====
+  const velocityTracks = document.querySelectorAll('.scroll-velocity-track');
+  velocityTracks.forEach(track => {
+    const firstItem = track.children[0];
+    if (!firstItem) return;
+    const itemWidth = firstItem.getBoundingClientRect().width + 24;
+    const originalCount = track.children.length / 3;
+    const loopWidth = itemWidth * originalCount;
+
+    const marquee = gsap.to(track, {
+      x: -loopWidth,
+      ease: 'none',
+      duration: 20,
+      repeat: -1,
+    });
+
+    let lastScrollY = window.scrollY;
+    window.addEventListener('scroll', () => {
+      const velocity = Math.abs(window.scrollY - lastScrollY);
+      lastScrollY = window.scrollY;
+      const scale = Math.min(1 + velocity * 0.015, 6);
+      marquee.timeScale(scale);
+    });
+  });
+</script>

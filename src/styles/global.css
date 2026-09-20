@@ -1,0 +1,221 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Playfair Display', serif;
+
+  --color-espresso: #2C1E16;
+  --color-warmgrey: #6B6560;
+  --color-offwhite: #F4F2EE;
+  --color-terracotta: #C27A5E;
+  --color-darkbrown: #1F1815;
+  --color-terracotta-deep: #A85F43;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+html {
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar {
+  display: none;
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #F4F2EE; }
+::-webkit-scrollbar-thumb { background: #C27A5E; border-radius: 4px; }
+
+.dark ::-webkit-scrollbar-track { background: #1a1a1a; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+img { background-color: #e5e1db; color: transparent; }
+
+.dropdown-menu {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(8px);
+  transition: all 0.2s ease;
+}
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (min-width: 768px) {
+  .timeline-item:nth-child(odd) .timeline-circle { transform: translateX(-50%); }
+  .timeline-item:nth-child(even) .timeline-circle { transform: translateX(50%); }
+}
+
+/* Scroll Reveal (reactbits.dev) */
+.scroll-reveal {
+  margin: 0;
+}
+
+.scroll-reveal-text {
+  font-size: inherit;
+  line-height: 1.5;
+  font-weight: inherit;
+}
+
+.scroll-reveal .word {
+  display: inline-block;
+  will-change: opacity, filter;
+}
+
+/* Count Up */
+.count-up-value {
+  display: inline-block;
+}
+
+/* ===== DARK MODE ===== */
+.dark {
+  color-scheme: dark;
+}
+
+.dark body,
+.dark {
+  background-color: #1a1714;
+  color: #c5bfb8;
+}
+
+.dark .bg-offwhite { background-color: #1a1714 !important; }
+.dark .bg-white { background-color: #252017 !important; }
+.dark .bg-espresso { background-color: #e8ddd3 !important; color: #1a1714 !important; }
+.dark .bg-darkbrown { background-color: #0f0d0a !important; }
+
+.dark .text-espresso { color: #e8ddd3 !important; }
+.dark .text-warmgrey { color: #a09890 !important; }
+.dark .text-offwhite { color: #1a1714 !important; }
+.dark .text-terracotta { color: #d4956f !important; }
+.dark .text-darkbrown { color: #f4f2ee !important; }
+.dark .text-white { color: #f4f2ee !important; }
+
+.dark .border-gray-200 { border-color: #3a332a !important; }
+.dark .border-gray-300 { border-color: #3a332a !important; }
+.dark .border-gray-100 { border-color: #3a332a !important; }
+.dark .border-espresso\/10 { border-color: rgba(232,221,211,0.1) !important; }
+.dark .border-white\/10 { border-color: rgba(255,255,255,0.06) !important; }
+.dark .border-white { border-color: #3a332a !important; }
+.dark .border { border-color: #3a332a !important; }
+
+.dark .shadow-sm { box-shadow: 0 1px 3px rgba(0,0,0,0.3) !important; }
+.dark .shadow-xl { box-shadow: 0 8px 30px rgba(0,0,0,0.4) !important; }
+.dark .shadow-lg { box-shadow: 0 8px 24px rgba(0,0,0,0.4) !important; }
+.dark .shadow { box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important; }
+
+.dark .hover\:bg-white:hover { background-color: #302a20 !important; }
+.dark .hover\:bg-offwhite:hover { background-color: #302a20 !important; }
+.dark .hover\:bg-terracotta:hover { background-color: #d4956f !important; }
+.dark .hover\:shadow-xl:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.5) !important; }
+
+.dark .bg-white\/90 { background-color: rgba(37,32,23,0.9) !important; }
+.dark .bg-white\/20 { background-color: rgba(255,255,255,0.05) !important; }
+.dark .bg-black\/40 { background-color: rgba(0,0,0,0.6) !important; }
+.dark .bg-black\/50 { background-color: rgba(0,0,0,0.7) !important; }
+.dark .bg-espresso\/10 { background-color: rgba(232,221,211,0.08) !important; }
+
+.dark .text-espresso\/20 { color: rgba(232,221,211,0.15) !important; }
+.dark .text-white\/50 { color: rgba(244,242,238,0.35) !important; }
+.dark .text-white\/60 { color: rgba(244,242,238,0.45) !important; }
+.dark .text-white\/80 { color: rgba(244,242,238,0.65) !important; }
+.dark .text-white\/30 { color: rgba(244,242,238,0.2) !important; }
+
+.dark .from-black\/80 { --tw-gradient-from: rgba(0,0,0,0.85); }
+.dark .to-transparent { --tw-gradient-to: transparent; }
+
+.dark .fill-current { fill: currentColor; }
+.dark .stroke-current { stroke: currentColor; }
+
+.dark .divide-gray-100 > :not([hidden]) ~ :not([hidden]) { border-color: #3a332a !important; }
+
+/* Navbar dark mode */
+.dark .navbar.scrolled { background: rgba(26,23,20,0.95) !important; }
+.dark .navbar.scrolled a,
+.dark .navbar.scrolled .logo-text,
+.dark .navbar.scrolled button { color: #e8ddd3 !important; }
+.dark .navbar.scrolled .contact-btn { border-color: #e8ddd3 !important; color: #e8ddd3 !important; }
+.dark .navbar.scrolled .nav-links a::after { background: #c27a5e; }
+
+/* Dropdown dark mode */
+.dark .dropdown-menu { background-color: #252017 !important; border-color: rgba(232,221,211,0.1) !important; }
+.dark .dropdown-menu a { color: #e8ddd3 !important; }
+.dark .dropdown-menu a:hover { background-color: #302a20 !important; }
+
+/* Scrollbar dark mode */
+.dark ::-webkit-scrollbar-thumb { background: #4a3f35; }
+
+/* Pricing popular card */
+.dark .bg-espresso.rounded-3xl { background-color: #252017 !important; }
+.dark .bg-espresso.rounded-3xl h3,
+.dark .bg-espresso.rounded-3xl p,
+.dark .bg-espresso.rounded-3xl li { color: #e8ddd3 !important; }
+.dark .bg-espresso.rounded-3xl .bg-white { background-color: #302a20 !important; color: #e8ddd3 !important; }
+
+/* Filter pills active dark */
+.dark .filter-pill.active { background-color: #e8ddd3 !important; color: #1a1714 !important; }
+
+/* Contact form dark mode */
+.dark #contactForm input,
+.dark #contactForm textarea { background-color: #252017 !important; border-color: #3a332a !important; color: #e8ddd3 !important; }
+.dark #contactForm input::placeholder,
+.dark #contactForm textarea::placeholder { color: #6b6560 !important; }
+.dark #contactForm input:focus,
+.dark #contactForm textarea:focus { border-color: #c27a5e !important; }
+
+/* Button dark mode overrides */
+.dark .btn-primary { background-color: #e8ddd3; color: #1a1714; }
+.dark .btn-primary:hover { background-color: #c27a5e; color: #fff; }
+
+/* Process step number */
+.dark .process-card span.text-terracotta\/20 { color: rgba(212,149,111,0.15) !important; }
+
+/* Home detail stats bar */
+.dark .bg-espresso.text-white { background-color: #252017 !important; }
+
+/* Testimonials */
+.dark .testimonial-card { background-color: #252017 !important; border-color: #3a332a !important; }
+
+/* Footer */
+.dark footer.bg-darkbrown { background-color: #0f0d0a !important; }
+.dark footer a { color: #a09890 !important; }
+.dark footer a:hover { color: #c27a5e !important; }
+.dark footer h4 { color: #f4f2ee !important; }
+
+/* Offwhite bg sections alternating */
+.dark .bg-offwhite { background-color: #1a1714 !important; }
+.dark .bg-white { background-color: #252017 !important; }
+
+/* Floating card in Hero */
+.dark .float-inner { background-color: #3a2c20 !important; }
+
+/* Materials section terracotta block */
+.dark .bg-terracotta { background-color: #a85f43 !important; }
+
+/* About quote overlay */
+.dark .bg-white.p-6.rounded-2xl.shadow-lg { background-color: #252017 !important; }
+.dark .bg-white.p-6.rounded-2xl.shadow-lg p { color: #e8ddd3 !important; }
+
+/* Pricing section dark */
+.dark #pricing .bg-offwhite { background-color: #1a1714 !important; border-color: #3a332a !important; }
+
+/* CTA button in footer */
+.dark footer .bg-white.text-darkbrown { background-color: #e8ddd3 !important; color: #1a1714 !important; }
+.dark footer .bg-white.text-darkbrown:hover { background-color: #c27a5e !important; color: #fff !important; }
+
+/* Contact section dark */
+.dark #contact .bg-gray-200 { background-color: #302a20 !important; }
+.dark #contact .bg-white { background-color: #252017 !important; }
+.dark #contact .bg-white.p-8 { background-color: #252017 !important; border-color: #3a332a !important; }
+.dark #contact .bg-white.p-8 h3 { color: #e8ddd3 !important; }
+.dark #contact .border-b { border-color: #3a332a !important; }

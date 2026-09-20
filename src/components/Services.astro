@@ -1,0 +1,31 @@
+---
+const services = [
+  { img: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', alt: 'Modern interior design living room', tag: 'Interior', title: 'Interior Design', desc: 'We create functional and aesthetic spaces tailored to your lifestyle.' },
+  { img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', alt: 'Modern house exterior architectural design', tag: 'Architecture', title: 'Architectural Design', desc: 'Innovative structural designs that harmonize with the environment.' },
+  { img: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', alt: 'Photorealistic 3D render of modern interior', tag: '3D', title: '3D Visualization', desc: 'Photorealistic renders to help you visualize your home before construction.' },
+  { img: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', alt: 'Construction site with workers', tag: 'Construction', title: 'Construction', desc: 'End-to-end project management with verified suppliers and craftsmen.' },
+  { img: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', alt: 'Material samples and blueprints', tag: 'Consulting', title: 'Material Consultation', desc: 'Expert advice on selecting the best, most durable materials for your home.' },
+  { img: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', alt: 'Architect presenting project plans', tag: 'Consulting', title: 'Project Consulting', desc: 'Personalized guidance from concept to completion of your home.' }
+];
+---
+
+<section id="services" class="scroll-mt-20 py-24 md:py-32 px-6 lg:px-16 bg-offwhite">
+  <div class="max-w-7xl mx-auto">
+    <h1 class="font-serif text-3xl md:text-5xl lg:text-6xl text-espresso uppercase mb-4 services-title scroll-reveal">Our Services</h1>
+    <p class="text-lg max-w-2xl mb-16">From initial concept to final handover, we provide end-to-end solutions for your dream home.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {services.map((s) => (
+        <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow group cursor-pointer service-card">
+          <div class="h-64 overflow-hidden">
+            <img src={s.img} alt={s.alt} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
+          <div class="p-5 md:p-8">
+            <span class="px-3 py-1 bg-offwhite text-espresso text-xs rounded-full font-medium">{s.tag}</span>
+            <h3 class="font-serif text-2xl text-espresso mt-4 mb-2">{s.title}</h3>
+            <p class="text-sm">{s.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,24 @@
+---
+const steps = [
+  { num: 1, title: 'Konsultasi', desc: 'Kami mendengarkan visi Anda, kebutuhan, dan budget untuk merancang konsep awal.' },
+  { num: 2, title: 'Desain', desc: 'Arsitek kami membuat blueprint dan denah yang detail sesuai dengan konsep yang disetujui.' },
+  { num: 3, title: '3D Render', desc: 'Visualisasi fotorealistik agar Anda dapat melihat hasil akhir sebelum konstruksi dimulai.' },
+  { num: 4, title: 'Konstruksi', desc: 'Proses pembangunan oleh tim ahli dengan pengawasan kualitas yang ketat.' },
+  { num: 5, title: 'Handover', desc: 'Serah terima kunci dan rumah siap huni. Kami memastikan semuanya sempurna.' }
+];
+---
+
+<section id="process" class="scroll-mt-20 py-24 md:py-32 px-6 lg:px-16 bg-white">
+  <div class="max-w-7xl mx-auto">
+    <h1 class="font-serif text-3xl md:text-5xl lg:text-6xl text-espresso uppercase mb-10 md:mb-16 text-center process-title scroll-reveal">How We Work</h1>
+    <div class="flex overflow-x-auto no-scrollbar gap-6 md:gap-8 pb-8 snap-x">
+      {steps.map((s) => (
+        <div class="min-w-[260px] md:min-w-[400px] bg-offwhite p-6 md:p-8 rounded-3xl shadow-sm snap-center flex-shrink-0 relative process-card">
+          <span class="font-serif text-6xl md:text-8xl text-terracotta/20 absolute top-4 right-6"><span class="count-up-value" data-count={s.num} data-prefix="0">0</span></span>
+          <h3 class="font-serif text-2xl text-espresso mb-4 mt-12 relative z-10">{s.title}</h3>
+          <p class="text-sm relative z-10">{s.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

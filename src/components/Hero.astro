@@ -1,0 +1,483 @@
+---
+---
+<section id="home" class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Modern home at sunset" fetchpriority="high">
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-left">
+      <h1 class="hero-heading">
+        <span class="line line-small"><span style="--i:0">The</span></span>
+        <span class="line line-large"><span style="--i:1">Perfect</span></span>
+        <span class="line line-italic"><span style="--i:2">Home.</span></span>
+      </h1>
+      <p class="hero-tagline"><span aria-hidden="true">/</span> We craft custom homes <span aria-hidden="true">/</span></p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn-primary">Start Project</a>
+        <a href="#cases" class="btn-secondary">
+          Explore Portfolio
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="card-inner">
+        <div class="card-tags" role="group" aria-label="Service categories">
+          <button type="button" class="tag" data-key="interior" aria-pressed="false">Interior</button>
+          <button type="button" class="tag" data-key="design" aria-pressed="false">Design</button>
+          <button type="button" class="tag active" data-key="3d" aria-pressed="true">3D</button>
+        </div>
+        <div class="card-body" id="cardBody" aria-live="polite">
+          <h3 class="card-title" id="cardTitle">Unique design &amp;&#10;ergonomics</h3>
+          <p class="card-text" id="cardText">From blueprints to renders.</p>
+        </div>
+        <button type="button" class="video-btn">
+          <span class="play-circle">
+            <svg fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 6-12 6z"/></svg>
+          </span>
+          <span class="video-text">
+            <strong>Roomtour</strong>
+            <span>Watch video</span>
+          </span>
+          <span class="video-thumb">
+            <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="">
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="floating-card">
+    <div class="float-inner">
+      <h3>We use best<br>materials!</h3>
+      <p class="float-text">Working with verified suppliers.</p>
+      <div class="float-diagram" role="img" aria-label="Wall cross-section: plaster, brick, insulation, concrete">
+        <svg viewBox="0 0 240 72" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <clipPath id="wallClip"><rect width="240" height="72" rx="8"/></clipPath>
+            <pattern id="brick" width="30" height="18" patternUnits="userSpaceOnUse">
+              <path d="M0 .5H30M0 9.5H30M15 .5V9.5M0 9.5V18.5" stroke="#fff" stroke-opacity=".6" stroke-width="1" fill="none"/>
+            </pattern>
+            <pattern id="insul" width="12" height="12" patternUnits="userSpaceOnUse">
+              <path d="M0 12L6 0L12 12" stroke="#fff" stroke-opacity=".7" stroke-width="1" fill="none"/>
+            </pattern>
+            <pattern id="conc" width="8" height="8" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1" fill="#fff" fill-opacity=".7"/>
+              <circle cx="6" cy="6" r="1" fill="#fff" fill-opacity=".7"/>
+            </pattern>
+          </defs>
+          <g clip-path="url(#wallClip)">
+            <rect width="240" height="72" fill="#fff" fill-opacity=".14"/>
+            <rect x="0"   width="16" height="72" fill="#fff" fill-opacity=".85"/>
+            <rect x="16"  width="90" height="72" fill="url(#brick)"/>
+            <rect x="106" width="48" height="72" fill="#fff" fill-opacity=".12"/>
+            <rect x="106" width="48" height="72" fill="url(#insul)"/>
+            <rect x="154" width="86" height="72" fill="url(#conc)"/>
+            <path d="M16 0V72M106 0V72M154 0V72" stroke="#fff" stroke-opacity=".9" stroke-width="1.5"/>
+          </g>
+          <rect x=".5" y=".5" width="239" height="71" rx="8" fill="none" stroke="#fff" stroke-opacity=".5"/>
+        </svg>
+      </div>
+      <div class="float-circle"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --espresso: #2C1E16;
+    --warmgrey: #6B6560;
+    --offwhite: #F4F2EE;
+    --terracotta: #C27A5E;
+    --terracotta-deep: #A85F43;
+    --clay-light: #E8A98E;
+    --darkbrown: #1F1815;
+    --shade: 20, 12, 8;
+    --gutter: 1.5rem;
+    --ease: cubic-bezier(.2, .7, .2, 1);
+  }
+
+  @media (min-width: 768px) { :root { --gutter: 4rem; } }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--offwhite);
+    color: var(--warmgrey);
+    overflow-x: hidden;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--clay-light);
+    outline-offset: 3px;
+  }
+
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    padding: 6.5rem var(--gutter) 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .hero {
+      min-height: calc(100vh - 7rem);
+      min-height: calc(100svh - 7rem);
+      padding-top: 7rem;
+      padding-bottom: 9rem;
+      margin-bottom: 8rem;
+    }
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: 0 0 1.5rem 1.5rem;
+  }
+
+  @media (min-width: 768px) { .hero-bg { border-radius: 0 0 2.5rem 2.5rem; } }
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: #3a2c24;
+    animation: settle 2s var(--ease) both;
+  }
+  .hero-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(180deg, rgba(var(--shade), 0.45) 0%, rgba(var(--shade), 0) 22%),
+      linear-gradient(90deg, rgba(var(--shade), 0.78) 0%, rgba(var(--shade), 0.5) 45%, rgba(var(--shade), 0.12) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3rem;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-content { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 3rem; }
+  }
+
+  .hero-left {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero-heading {
+    font-family: 'Playfair Display', serif;
+    color: var(--offwhite);
+    text-transform: uppercase;
+    line-height: 0.92;
+    text-shadow: 0 2px 30px rgba(var(--shade), 0.35);
+  }
+  .line { display: block; overflow: hidden; }
+  .line > span {
+    display: block;
+    animation: rise 0.95s var(--ease) both;
+    animation-delay: calc(var(--i) * 0.12s + 0.1s);
+  }
+  .line-small { font-size: clamp(1.75rem, 5vw, 4.25rem); font-weight: 600; letter-spacing: 0.04em; }
+  .line-large { font-size: clamp(2.75rem, 9.5vw, 8.5rem); font-weight: 700; }
+  .line-italic {
+    font-size: clamp(2.75rem, 9.5vw, 8.5rem);
+    font-weight: 700;
+    font-style: italic;
+    color: var(--clay-light);
+  }
+
+  .hero-tagline {
+    margin-top: 1.75rem;
+    font-size: 1.125rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    color: rgba(244, 242, 238, 0.9);
+    animation: fadeUp 0.8s var(--ease) 0.55s both;
+  }
+  .hero-tagline span { color: var(--clay-light); }
+
+  .hero-buttons {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    animation: fadeUp 0.8s var(--ease) 0.7s both;
+  }
+  .btn-primary {
+    display: inline-block;
+    background: var(--offwhite);
+    color: var(--espresso);
+    padding: 1rem 2.25rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s, transform 0.3s;
+  }
+  .btn-primary:hover {
+    background: var(--terracotta);
+    color: #fff;
+    transform: translateY(-2px);
+  }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--offwhite);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .btn-secondary:hover { color: var(--clay-light); }
+  .btn-secondary svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s;
+  }
+  .btn-secondary:hover svg { transform: translateX(4px); }
+
+  .hero-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeUp 0.9s var(--ease) 0.85s both;
+  }
+  @media (min-width: 1024px) { .hero-card { justify-content: flex-end; } }
+
+  .card-inner {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 28px;
+    padding: 1.75rem;
+    width: 100%;
+    max-width: 26rem;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+  }
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .tag {
+    padding: 0.375rem 1rem;
+    border-radius: 9999px;
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border: 1px solid #e5e5e5;
+    color: var(--espresso);
+    background: #fff;
+    cursor: pointer;
+    transition: background 0.25s, color 0.25s, border-color 0.25s;
+  }
+  .tag:hover { border-color: var(--espresso); }
+  .tag.active {
+    background: var(--espresso);
+    color: #fff;
+    border-color: var(--espresso);
+  }
+  .card-body { transition: opacity 0.16s, transform 0.16s; }
+  .card-body.is-swapping { opacity: 0; transform: translateY(6px); }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 400;
+    color: var(--espresso);
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+    white-space: pre-line;
+  }
+  .card-text {
+    font-size: 0.875rem;
+    color: var(--warmgrey);
+    margin-bottom: 1.75rem;
+  }
+  .video-btn {
+    width: 100%;
+    border: none;
+    font: inherit;
+    text-align: left;
+    background: var(--offwhite);
+    border-radius: 1rem;
+    padding: 0.875rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .video-btn:hover { background: #ebe8e4; }
+  .play-circle {
+    width: 48px;
+    height: 48px;
+    background: var(--terracotta);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+    transition: transform 0.3s;
+  }
+  .video-btn:hover .play-circle { transform: scale(1.1); }
+  .play-circle svg { width: 20px; height: 20px; margin-left: 2px; }
+  .video-text strong {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--espresso);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .video-text span {
+    font-size: 0.75rem;
+    color: var(--warmgrey);
+  }
+  .video-thumb {
+    margin-left: auto;
+    flex-shrink: 0;
+    width: 6rem;
+    height: 4rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  .video-thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: #e5e1db;
+  }
+
+  .floating-card {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: max(var(--gutter), calc((100% - 1280px) / 2));
+    z-index: 20;
+    transform: translateY(50%);
+    animation: fadeIn 0.8s ease 1.05s both;
+  }
+  @media (min-width: 768px) { .floating-card { display: block; } }
+  .float-inner {
+    background: var(--terracotta-deep);
+    border-radius: 0 72px 28px 28px;
+    padding: 1.5rem 1.75rem;
+    width: 19rem;
+    color: #fff;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+  .float-inner h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.375rem;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+    position: relative;
+    z-index: 1;
+  }
+  .float-text {
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  .float-diagram {
+    position: relative;
+    z-index: 1;
+    height: 4.5rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+  .float-diagram svg { display: block; width: 100%; height: 100%; }
+  .float-circle {
+    position: absolute;
+    bottom: -2.5rem;
+    right: -2.5rem;
+    width: 9rem;
+    height: 9rem;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+  }
+
+  @keyframes settle { from { transform: scale(1.08); } to { transform: scale(1); } }
+  @keyframes rise   { from { transform: translateY(105%); } to { transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation: none !important;
+      transition-duration: 0.01ms !important;
+    }
+    html { scroll-behavior: auto; }
+  }
+</style>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  const content = {
+    interior: { title: 'Rooms planned around\nhow you live', text: 'Layouts, materials, and lighting.' },
+    design:   { title: 'Custom plans for\nyour plot', text: 'From first sketch to final drawings.' },
+    '3d':     { title: 'Unique design &\nergonomics', text: 'From blueprints to renders.' }
+  };
+  const tabs  = document.querySelectorAll('.tag');
+  const body  = document.getElementById('cardBody');
+  const title = document.getElementById('cardTitle');
+  const text  = document.getElementById('cardText');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      if (tab.classList.contains('active')) return;
+      tabs.forEach(t => {
+        const on = t === tab;
+        t.classList.toggle('active', on);
+        t.setAttribute('aria-pressed', String(on));
+      });
+      body.classList.add('is-swapping');
+      setTimeout(() => {
+        const c = content[tab.dataset.key];
+        title.textContent = c.title;
+        text.textContent = c.text;
+        body.classList.remove('is-swapping');
+      }, 160);
+    });
+  });
+</script>

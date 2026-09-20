@@ -1,0 +1,26 @@
+---
+const team = [
+  { name: 'Andi Pratama', role: 'Principal Architect', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80', alt: 'Andi Pratama' },
+  { name: 'Siti Rahma', role: 'Interior Designer', img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80', alt: 'Siti Rahma' },
+  { name: 'Budi Santoso', role: 'Project Manager', img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80', alt: 'Budi Santoso' },
+  { name: 'Diana Lestari', role: '3D Visualizer', img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80', alt: 'Diana Lestari' }
+];
+---
+
+<section id="team" class="scroll-mt-20 py-24 md:py-32 px-6 lg:px-16 bg-offwhite">
+  <div class="max-w-7xl mx-auto">
+    <h1 class="font-serif text-3xl md:text-5xl lg:text-6xl text-espresso uppercase mb-4 text-center team-title scroll-reveal">Meet The Team</h1>
+    <p class="text-lg text-center max-w-2xl mx-auto mb-16">The brilliant minds behind RANTY's architectural masterpieces.</p>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+      {team.map((t) => (
+        <div class="text-center group team-card">
+          <div class="w-24 h-24 md:w-32 md:h-32 mx-auto rounded-full overflow-hidden mb-4 group-hover:scale-105 transition-transform">
+            <img src={t.img} alt={t.alt} class="w-full h-full object-cover">
+          </div>
+          <h3 class="font-serif text-xl text-espresso">{t.name}</h3>
+          <p class="text-xs uppercase tracking-widest text-terracotta mt-1">{t.role}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,31 @@
+---
+const testimonials = [
+  { text: '"Prosesnya sangat profesional. Dari desain 3D hingga konstruksi, semuanya sesuai dengan ekspektasi kami."', name: 'Rian & Family', role: 'Residential Client', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80', alt: 'Rian' },
+  { text: '"Material yang digunakan benar-benar berkualitas. Rumah terasa sejuk dan nyaman tanpa perlu AC berlebihan."', name: 'Maya Indah', role: 'Villa Owner', img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80', alt: 'Maya' },
+  { text: '"Tim RANTY sangat responsif. Setiap pertanyaan dijawab dengan cepat dan solutif. Highly recommended!"', name: 'David Chen', role: 'Commercial Client', img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80', alt: 'David' }
+];
+---
+
+<section id="testimonials" class="scroll-mt-20 py-24 md:py-32 px-6 lg:px-16 bg-white">
+  <div class="max-w-7xl mx-auto">
+    <h1 class="font-serif text-3xl md:text-5xl lg:text-6xl text-espresso uppercase mb-10 md:mb-16 text-center testimonials-title scroll-reveal">What Our Clients Say</h1>
+
+    <div class="grid grid-cols-2 gap-4 md:gap-8 max-w-3xl mx-auto mb-12 md:mb-16 text-center testimonials-stats">
+      <div><h2 class="font-serif text-4xl md:text-6xl text-espresso italic"><span class="count-up-value" data-count="98" data-suffix="%">0</span></h2><p class="text-xs md:text-sm uppercase tracking-widest mt-2">Client Satisfaction</p></div>
+      <div><h2 class="font-serif text-4xl md:text-6xl text-espresso italic"><span class="count-up-value" data-count="40" data-suffix="%">0</span></h2><p class="text-xs md:text-sm uppercase tracking-widest mt-2">Repeat Customers</p></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {testimonials.map((t) => (
+        <div class="bg-offwhite p-5 md:p-8 rounded-3xl shadow-sm border border-gray-100 testimonial-card">
+          <div class="flex gap-1 text-terracotta mb-4">★★★★★</div>
+          <p class="text-sm mb-6">{t.text}</p>
+          <div class="flex items-center gap-3">
+            <img src={t.img} alt={t.alt} class="w-10 h-10 rounded-full object-cover">
+            <div><p class="text-xs font-bold text-espresso">{t.name}</p><p class="text-[10px] text-warmgrey">{t.role}</p></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
