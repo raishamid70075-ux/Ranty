@@ -8,10 +8,10 @@
     </a>
 
     <ul class="nav-links">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#homes">Homes</a></li>
-      <li><a href="#about">About us</a></li>
-      <li><a href="#cases">Cases</a></li>
+      <li><a href="#services" class="nav-link" data-page="services">Services</a></li>
+      <li><a href="#homes" class="nav-link" data-page="homes">Homes</a></li>
+      <li><a href="#about" class="nav-link" data-page="about">About us</a></li>
+      <li><a href="#cases" class="nav-link" data-page="cases">Cases</a></li>
       <li class="relative dropdown" style="z-index: 100;">
         <a href="#more" class="more-link flex items-center gap-1 hover:text-clay-light transition-colors">
           More
@@ -55,7 +55,7 @@
     <div class="sm-prelayer" style="background: #2C1E16;"></div>
     <div class="sm-prelayer" style="background: #C27A5E;"></div>
   </div>
-  <aside id="staggered-menu-panel" class="staggered-menu-panel" aria-hidden="true">
+  <aside id="staggered-menu-panel" class="staggered-menu-panel" aria-hidden="true" inert>
     <div class="sm-panel-inner">
       <ul class="sm-panel-list" role="list">
         <li class="sm-panel-itemWrap"><a class="sm-panel-item" href="#services"><span class="sm-panel-itemLabel">Services</span></a></li>
@@ -83,7 +83,7 @@
     content: '';
     position: absolute;
     inset: 0 0 -2rem 0;
-    background: linear-gradient rgba(var(--shade), 0.55), transparent);
+    background: linear-gradient(rgba(var(--shade), 0.55), transparent);
     z-index: -1;
     pointer-events: none;
     transition: opacity 0.3s;
@@ -206,8 +206,8 @@
   }
   .theme-toggle .icon-moon { display: none; }
   .theme-toggle .icon-sun { display: block; }
-  .dark .theme-toggle .icon-moon { display: block; }
-  .dark .theme-toggle .icon-sun { display: none; }
+  :global(.dark) .theme-toggle .icon-moon { display: block; }
+  :global(.dark) .theme-toggle .icon-sun { display: none; }
   .contact-btn {
     color: #fff;
     text-decoration: none;
@@ -602,6 +602,7 @@
 
     mobileToggle?.setAttribute('aria-expanded', String(target));
     panel?.setAttribute('aria-hidden', String(!target));
+    panel?.toggleAttribute('inert', !target);
 
     if (target) {
       document.body.classList.add('sm-open');
@@ -620,6 +621,7 @@
     isOpen = false;
     mobileToggle?.setAttribute('aria-expanded', 'false');
     panel?.setAttribute('aria-hidden', 'true');
+    panel?.toggleAttribute('inert', true);
     document.body.classList.remove('sm-open');
     playClose();
     animateIcon(false);

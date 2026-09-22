@@ -40,8 +40,7 @@
       duration: 2,
       ease: 'power2.out',
       onUpdate: () => {
-        let val = Math.round(obj.val);
-        if (separator) val = Number(val.toLocaleString('en-US'));
+        const val = Math.round(obj.val);
         el.textContent = prefix + (separator ? val.toLocaleString('en-US') : val) + suffix;
       }
     });

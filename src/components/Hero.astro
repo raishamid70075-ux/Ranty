@@ -88,35 +88,7 @@
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-  :root {
-    --espresso: #2C1E16;
-    --warmgrey: #6B6560;
-    --offwhite: #F4F2EE;
-    --terracotta: #C27A5E;
-    --terracotta-deep: #A85F43;
-    --clay-light: #E8A98E;
-    --darkbrown: #1F1815;
-    --shade: 20, 12, 8;
-    --gutter: 1.5rem;
-    --ease: cubic-bezier(.2, .7, .2, 1);
-  }
-
-  @media (min-width: 768px) { :root { --gutter: 4rem; } }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--offwhite);
-    color: var(--warmgrey);
-    overflow-x: hidden;
-  }
-
-  :focus-visible {
-    outline: 2px solid var(--clay-light);
-    outline-offset: 3px;
-  }
-
+  /* REMOVED :root token scoping — vars now live in global.css */
   .hero {
     position: relative;
     min-height: 100vh;
@@ -448,11 +420,6 @@
 </style>
 
 <script>
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
-  });
-
   const content = {
     interior: { title: 'Rooms planned around\nhow you live', text: 'Layouts, materials, and lighting.' },
     design:   { title: 'Custom plans for\nyour plot', text: 'From first sketch to final drawings.' },

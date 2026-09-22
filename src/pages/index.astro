@@ -47,10 +47,7 @@ import Footer from '../components/Footer.astro';
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // Hero animations
-  gsap.from('.hero-text > *', { y: 60, opacity: 0, duration: 1, stagger: 0.15, ease: 'power3.out', delay: 0.3 });
-  gsap.from('.hero-card', { y: 40, opacity: 0, duration: 1, ease: 'power3.out', delay: 0.6 });
-  gsap.from('.hero-floating-card', { y: 80, opacity: 0, duration: 1, ease: 'power3.out', delay: 0.9 });
+  // Hero uses its own CSS animations — skip GSAP here
 
   // Home strip
   gsap.from('.home-strip > *', {
@@ -167,7 +164,7 @@ import Footer from '../components/Footer.astro';
 
   // ===== Scroll-spy =====
   const sections = document.querySelectorAll('main > section[id]');
-  const navLinks = document.querySelectorAll('.nav-link');
+  const navLinks = document.querySelectorAll('.nav-links .nav-link');
   const visibleSections = new Map<string, number>();
 
   const observer = new IntersectionObserver((entries) => {
