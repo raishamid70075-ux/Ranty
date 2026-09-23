@@ -1,0 +1,414 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="RANTY Admin">
+  <div class="min-h-screen bg-offwhite text-warmgrey p-6 lg:p-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-center justify-between mb-8">
+        <h1 class="font-serif text-3xl text-espresso">RANTY Admin</h1>
+        <div class="flex gap-3">
+          <a href="/" class="px-4 py-2 rounded-full border border-gray-300 text-sm hover:bg-white transition" style="border-color: #d1d5db; color: #6B6560;">View Site</a>
+          <button id="logout-btn" class="hidden px-4 py-2 rounded-full text-white text-sm font-medium hover:opacity-90 transition" style="background-color: #2C1E16; color: white;">Logout</button>
+        </div>
+      </div>
+
+      <!-- Login -->
+      <div id="login-panel" class="max-w-md mx-auto bg-white rounded-3xl p-8 shadow-xl border border-gray-100">
+        <h2 class="font-serif text-2xl text-espresso mb-4">Sign in</h2>
+        <form id="login-form" class="space-y-4">
+          <div>
+            <label class="block text-xs uppercase tracking-widest mb-1">Email</label>
+            <input type="email" id="login-email" required class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta" />
+          </div>
+          <div>
+            <label class="block text-xs uppercase tracking-widest mb-1">Password</label>
+            <input type="password" id="login-password" required class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta" />
+          </div>
+          <button type="submit" class="w-full text-white rounded-full py-3 font-medium hover:opacity-90 transition" style="background-color: #2C1E16; color: white;">Login</button>
+          <p id="login-error" class="text-red-600 text-sm hidden"></p>
+        </form>
+      </div>
+
+      <!-- Dashboard -->
+      <div id="dashboard-panel" class="hidden space-y-10">
+        <p class="text-sm">Manage homes and cases below. Changes are saved to Supabase and will reflect on the public site.</p>
+
+        <!-- Homes -->
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="font-serif text-2xl text-espresso">Homes</h2>
+            <button data-type="home" class="add-btn px-4 py-2 rounded-full text-white text-sm font-medium hover:opacity-90 transition" style="background-color: #C27A5E; color: white;">+ Add Home</button>
+          </div>
+          <div class="overflow-x-auto bg-white rounded-3xl border border-gray-100 shadow-sm">
+            <table class="w-full text-left text-sm">
+              <thead class="bg-espresso text-white">
+                <tr>
+                  <th class="px-4 py-3">Title</th>
+                  <th class="px-4 py-3">Slug</th>
+                  <th class="px-4 py-3">Category</th>
+                  <th class="px-4 py-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="homes-list"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Cases -->
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="font-serif text-2xl text-espresso">Cases</h2>
+            <button data-type="case" class="add-btn px-4 py-2 rounded-full text-white text-sm font-medium hover:opacity-90 transition" style="background-color: #C27A5E; color: white;">+ Add Case</button>
+          </div>
+          <div class="overflow-x-auto bg-white rounded-3xl border border-gray-100 shadow-sm">
+            <table class="w-full text-left text-sm">
+              <thead class="bg-espresso text-white">
+                <tr>
+                  <th class="px-4 py-3">Title</th>
+                  <th class="px-4 py-3">Slug</th>
+                  <th class="px-4 py-3">Category</th>
+                  <th class="px-4 py-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="cases-list"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Editor -->
+      <div id="editor-panel" class="hidden mt-8 bg-white rounded-3xl p-6 lg:p-8 shadow-xl border border-gray-100">
+        <h3 id="editor-title" class="font-serif text-2xl text-espresso mb-6">Edit</h3>
+        <form id="editor-form" class="space-y-4">
+          <input type="hidden" id="editor-type" />
+          <input type="hidden" id="editor-id" />
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs uppercase tracking-widest mb-1">Slug</label>
+              <input type="text" id="field-slug" required class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta" />
+            </div>
+            <div>
+              <label class="block text-xs uppercase tracking-widest mb-1">Title</label>
+              <input type="text" id="field-title" required class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta" />
+            </div>
+            <div class="md:col-span-2">
+              <label class="block text-xs uppercase tracking-widest mb-1">Subtitle / Description</label>
+              <input type="text" id="field-subtitle" required class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta" />
+            </div>
+            <div>
+              <label class="block text-xs uppercase tracking-widest mb-1">Category</label>
+              <input type="text" id="field-category" required class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta" />
+            </div>
+            <div>
+              <label class="block text-xs uppercase tracking-widest mb-1">Order Index</label>
+              <input type="number" id="field-order_index" required class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta" />
+            </div>
+            <div class="home-field">
+              <label class="block text-xs uppercase tracking-widest mb-1">Luas</label>
+              <input type="text" id="field-luas" class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta" />
+            </div>
+            <div class="home-field">
+              <label class="block text-xs uppercase tracking-widest mb-1">Kamar</label>
+              <input type="text" id="field-kamar" class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta" />
+            </div>
+            <div class="home-field">
+              <label class="block text-xs uppercase tracking-widest mb-1">Mandi</label>
+              <input type="text" id="field-mandi" class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta" />
+            </div>
+            <div class="home-field">
+              <label class="block text-xs uppercase tracking-widest mb-1">Harga</label>
+              <input type="text" id="field-harga" class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta" />
+            </div>
+            <div class="home-field md:col-span-2">
+              <label class="block text-xs uppercase tracking-widest mb-1">Hero Image URL</label>
+              <input type="text" id="field-hero_image" class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta" />
+            </div>
+            <div class="home-field md:col-span-2">
+              <label class="block text-xs uppercase tracking-widest mb-1">Hero Alt</label>
+              <input type="text" id="field-hero_alt" class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta" />
+            </div>
+            <div class="home-field md:col-span-2">
+              <label class="block text-xs uppercase tracking-widest mb-1">Gallery JSON</label>
+              <textarea id="field-gallery" rows="4" class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta font-mono text-xs"></textarea>
+            </div>
+            <div class="case-field">
+              <label class="block text-xs uppercase tracking-widest mb-1">Durasi</label>
+              <input type="text" id="field-durasi" class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta" />
+            </div>
+            <div class="case-field">
+              <label class="block text-xs uppercase tracking-widest mb-1">Luas</label>
+              <input type="text" id="field-case-luas" class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta" />
+            </div>
+            <div class="case-field">
+              <label class="block text-xs uppercase tracking-widest mb-1">Budget</label>
+              <input type="text" id="field-budget" class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta" />
+            </div>
+            <div class="case-field">
+              <label class="block text-xs uppercase tracking-widest mb-1">Region</label>
+              <input type="text" id="field-region" class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta" />
+            </div>
+            <div class="case-field md:col-span-2">
+              <label class="block text-xs uppercase tracking-widest mb-1">Before Image URL</label>
+              <input type="text" id="field-before_image" class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta" />
+            </div>
+            <div class="case-field md:col-span-2">
+              <label class="block text-xs uppercase tracking-widest mb-1">Before Alt</label>
+              <input type="text" id="field-before_alt" class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta" />
+            </div>
+            <div class="case-field md:col-span-2">
+              <label class="block text-xs uppercase tracking-widest mb-1">After Image URL</label>
+              <input type="text" id="field-after_image" class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta" />
+            </div>
+            <div class="case-field md:col-span-2">
+              <label class="block text-xs uppercase tracking-widest mb-1">After Alt</label>
+              <input type="text" id="field-after_alt" class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta" />
+            </div>
+            <div class="case-field md:col-span-2">
+              <label class="block text-xs uppercase tracking-widest mb-1">Quote</label>
+              <textarea id="field-quote" rows="3" class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta"></textarea>
+            </div>
+            <div class="case-field md:col-span-2">
+              <label class="block text-xs uppercase tracking-widest mb-1">Quote Author</label>
+              <input type="text" id="field-quote_author" class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:border-terracotta" />
+            </div>
+          </div>
+          <div class="flex gap-3 pt-4">
+            <button type="submit" class="px-6 py-2 rounded-full text-white hover:opacity-90 transition" style="background-color: #2C1E16; color: white;">Save</button>
+            <button type="button" id="editor-cancel" class="px-6 py-2 rounded-full border border-gray-300 hover:bg-white transition" style="border-color: #d1d5db; color: #6B6560;">Cancel</button>
+            <p id="editor-error" class="text-red-600 text-sm self-center hidden"></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import { getSupabase } from '../../lib/supabase';
+
+  const supabase = getSupabase();
+
+  const loginPanel = document.getElementById('login-panel');
+  const dashboardPanel = document.getElementById('dashboard-panel');
+  const editorPanel = document.getElementById('editor-panel');
+  const logoutBtn = document.getElementById('logout-btn');
+  const loginForm = document.getElementById('login-form');
+  const loginError = document.getElementById('login-error');
+  const editorForm = document.getElementById('editor-form');
+  const editorCancel = document.getElementById('editor-cancel');
+  const editorError = document.getElementById('editor-error');
+  const editorTitle = document.getElementById('editor-title');
+
+  let homes = [];
+  let cases = [];
+
+  function showLogin() {
+    loginPanel?.classList.remove('hidden');
+    dashboardPanel?.classList.add('hidden');
+    editorPanel?.classList.add('hidden');
+    logoutBtn?.classList.add('hidden');
+  }
+
+  function showDashboard() {
+    loginPanel?.classList.add('hidden');
+    dashboardPanel?.classList.remove('hidden');
+    logoutBtn?.classList.remove('hidden');
+    loadData();
+  }
+
+  async function checkSession() {
+    if (!supabase) return showLogin();
+    const { data } = await supabase.auth.getSession();
+    if (data.session) showDashboard(); else showLogin();
+  }
+
+  loginForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = (document.getElementById('login-email') as HTMLInputElement).value;
+    const password = (document.getElementById('login-password') as HTMLInputElement).value;
+    if (!supabase) return;
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+      if (loginError) { loginError.textContent = error.message; loginError.classList.remove('hidden'); }
+    } else {
+      if (loginError) loginError.classList.add('hidden');
+      showDashboard();
+    }
+  });
+
+  logoutBtn?.addEventListener('click', async () => {
+    if (!supabase) return;
+    await supabase.auth.signOut();
+    showLogin();
+  });
+
+  async function loadData() {
+    if (!supabase) return;
+    const [{ data: h }, { data: c }] = await Promise.all([
+      supabase.from('homes').select('*').order('order_index'),
+      supabase.from('cases').select('*').order('order_index')
+    ]);
+    homes = h || [];
+    cases = c || [];
+    renderList('homes', homes, ['title', 'slug', 'category']);
+    renderList('cases', cases, ['title', 'slug', 'category']);
+  }
+
+  function renderList(type, items, cols) {
+    const tbody = document.getElementById(`${type}-list`);
+    if (!tbody) return;
+    tbody.innerHTML = items.map(item => `
+      <tr class="border-b border-gray-100 hover:bg-gray-50">
+        ${cols.map(c => `<td class="px-4 py-3">${item[c] || ''}</td>`).join('')}
+        <td class="px-4 py-3 text-right space-x-2">
+          <button data-type="${type === 'homes' ? 'home' : 'case'}" data-id="${item.id}" class="edit-btn text-terracotta hover:underline">Edit</button>
+          <button data-type="${type === 'homes' ? 'home' : 'case'}" data-id="${item.id}" class="delete-btn text-red-600 hover:underline">Delete</button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  function setField(id, value) {
+    const el = document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement | null;
+    if (el) el.value = value ?? '';
+  }
+
+  function getField(id) {
+    const el = document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement | null;
+    return el ? el.value : '';
+  }
+
+  function openEditor(type, item = null) {
+    editorPanel?.classList.remove('hidden');
+    (document.getElementById('editor-type') as HTMLInputElement).value = type;
+    (document.getElementById('editor-id') as HTMLInputElement).value = item?.id || '';
+    if (editorTitle) editorTitle.textContent = item ? `Edit ${type}` : `Add ${type}`;
+
+    document.querySelectorAll('.home-field').forEach(el => el.classList.toggle('hidden', type !== 'home'));
+    document.querySelectorAll('.case-field').forEach(el => el.classList.toggle('hidden', type !== 'case'));
+
+    setField('field-slug', item?.slug);
+    setField('field-title', item?.title);
+    setField('field-subtitle', type === 'home' ? item?.subtitle : item?.description);
+    setField('field-category', item?.category);
+    setField('field-order_index', item?.order_index ?? 0);
+
+    if (type === 'home') {
+      setField('field-luas', item?.luas);
+      setField('field-kamar', item?.kamar);
+      setField('field-mandi', item?.mandi);
+      setField('field-harga', item?.harga);
+      setField('field-hero_image', item?.hero_image);
+      setField('field-hero_alt', item?.hero_alt);
+      setField('field-gallery', item ? JSON.stringify(item.gallery || [], null, 2) : '[]');
+    } else {
+      setField('field-durasi', item?.durasi);
+      setField('field-case-luas', item?.luas);
+      setField('field-budget', item?.budget);
+      setField('field-region', item?.region);
+      setField('field-before_image', item?.before_image);
+      setField('field-before_alt', item?.before_alt);
+      setField('field-after_image', item?.after_image);
+      setField('field-after_alt', item?.after_alt);
+      setField('field-quote', item?.quote);
+      setField('field-quote_author', item?.quote_author);
+    }
+    if (editorError) editorError.classList.add('hidden');
+  }
+
+  document.querySelectorAll('.add-btn').forEach(btn => {
+    btn.addEventListener('click', () => openEditor(btn.dataset.type));
+  });
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.classList.contains('edit-btn')) {
+      const type = target.dataset.type;
+      const id = target.dataset.id;
+      const list = type === 'home' ? homes : cases;
+      const item = list.find(x => x.id === id);
+      if (item) openEditor(type, item);
+    }
+    if (target.classList.contains('delete-btn')) {
+      const type = target.dataset.type;
+      const id = target.dataset.id;
+      if (!confirm(`Delete this ${type}?`)) return;
+      deleteItem(type, id);
+    }
+  });
+
+  editorCancel?.addEventListener('click', () => editorPanel?.classList.add('hidden'));
+
+  editorForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const type = (document.getElementById('editor-type') as HTMLInputElement).value;
+    const id = (document.getElementById('editor-id') as HTMLInputElement).value;
+    const isHome = type === 'home';
+
+    const payload = {
+      slug: getField('field-slug'),
+      title: getField('field-title'),
+      category: getField('field-category'),
+      order_index: parseInt(getField('field-order_index')) || 0
+    } as any;
+
+    if (isHome) {
+      payload.subtitle = getField('field-subtitle');
+      payload.luas = getField('field-luas');
+      payload.kamar = getField('field-kamar');
+      payload.mandi = getField('field-mandi');
+      payload.harga = getField('field-harga');
+      payload.hero_image = getField('field-hero_image');
+      payload.hero_alt = getField('field-hero_alt');
+      try { payload.gallery = JSON.parse(getField('field-gallery') || '[]'); }
+      catch { payload.gallery = []; }
+    } else {
+      payload.description = getField('field-subtitle');
+      payload.durasi = getField('field-durasi');
+      payload.luas = getField('field-case-luas');
+      payload.budget = getField('field-budget');
+      payload.region = getField('field-region');
+      payload.before_image = getField('field-before_image');
+      payload.before_alt = getField('field-before_alt');
+      payload.after_image = getField('field-after_image');
+      payload.after_alt = getField('field-after_alt');
+      payload.quote = getField('field-quote');
+      payload.quote_author = getField('field-quote_author');
+    }
+
+    if (!supabase) return;
+    const table = isHome ? 'homes' : 'cases';
+    let error;
+    if (id) {
+      const { error: e } = await supabase.from(table).update(payload).eq('id', id);
+      error = e;
+    } else {
+      const { error: e } = await supabase.from(table).insert(payload);
+      error = e;
+    }
+    if (error) {
+      if (editorError) { editorError.textContent = error.message; editorError.classList.remove('hidden'); }
+    } else {
+      editorPanel?.classList.add('hidden');
+      loadData();
+    }
+  });
+
+  async function deleteItem(type, id) {
+    if (!supabase) return;
+    const table = type === 'home' ? 'homes' : 'cases';
+    const { error } = await supabase.from(table).delete().eq('id', id);
+    if (error) alert(error.message);
+    else loadData();
+  }
+
+  if (supabase) {
+    supabase.auth.onAuthStateChange((event) => {
+      if (event === 'SIGNED_IN') showDashboard();
+      if (event === 'SIGNED_OUT') showLogin();
+    });
+  }
+
+  checkSession();
+</script>

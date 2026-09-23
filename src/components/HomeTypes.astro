@@ -1,12 +1,16 @@
 ---
-const homes = [
-  { key: 'horizon', name: 'The Horizon', category: 'modern', tag: 'Modern', beds: '3 Bedrooms', sqm: '250 sqm', img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', alt: 'The Horizon modern house' },
-  { key: 'zen', name: 'The Zen', category: 'minimalist', tag: 'Minimalist', beds: '2 Bedrooms', sqm: '180 sqm', img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', alt: 'The Zen minimalist house' },
-  { key: 'oasis', name: 'The Oasis', category: 'villa', tag: 'Villa', beds: '4 Bedrooms', sqm: '400 sqm', img: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', alt: 'The Oasis luxury villa' },
-  { key: 'breeze', name: 'The Breeze', category: 'tropical', tag: 'Tropical', beds: '3 Bedrooms', sqm: '220 sqm', img: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', alt: 'The Breeze tropical house' },
-  { key: 'cube', name: 'The Cube', category: 'modern', tag: 'Modern', beds: '4 Bedrooms', sqm: '320 sqm', img: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', alt: 'The Cube modern house' },
-  { key: 'loft', name: 'The Loft', category: 'minimalist', tag: 'Minimalist', beds: '2 Bedrooms', sqm: '150 sqm', img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', alt: 'The Loft minimalist house' }
-];
+import { getHomes } from '../lib/cms';
+import type { Home } from '../types/cms';
+
+const homes = await getHomes();
+
+function tag(h: Home) {
+  return h.category.charAt(0).toUpperCase() + h.category.slice(1);
+}
+function sqm(h: Home) {
+  const n = parseInt(h.luas) || 0;
+  return `${n} sqm`;
+}
 ---
 
 <section id="homes" class="scroll-mt-20 py-24 md:py-32 px-6 lg:px-16 bg-white">
@@ -22,15 +26,15 @@ const homes = [
       <button data-filter="tropical" data-target="homes" class="filter-pill px-6 py-2 rounded-full border border-gray-300 text-espresso text-sm font-medium hover:bg-white transition">Tropical</button>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 home-grid">
+    <div id="homes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 home-grid">
       {homes.map((h) => (
-        <a href="#home-detail" data-category={h.category} data-key={h.key} class="home-card group cursor-pointer block">
+        <a href="#home-detail" data-category={h.category} data-key={h.slug} class="home-card group cursor-pointer block">
           <div class="rounded-3xl overflow-hidden h-48 md:h-64 lg:h-80 mb-4 relative">
-            <img src={h.img} alt={h.alt} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-espresso">{h.tag}</div>
+            <img src={h.hero_image} alt={h.hero_alt} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-espresso">{tag(h)}</div>
           </div>
-          <h3 class="font-serif text-2xl text-espresso group-hover:text-terracotta transition-colors">{h.name}</h3>
-          <p class="text-sm mt-1">{h.beds} • {h.sqm}</p>
+          <h3 class="font-serif text-2xl text-espresso group-hover:text-terracotta transition-colors">{h.title}</h3>
+          <p class="text-sm mt-1">{h.kamar} Bedrooms • {sqm(h)}</p>
         </a>
       ))}
     </div>

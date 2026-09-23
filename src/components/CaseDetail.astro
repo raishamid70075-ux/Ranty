@@ -1,42 +1,65 @@
 ---
+import { getCases } from '../lib/cms';
+import type { Case } from '../types/cms';
+
+const cases = await getCases();
+const c = cases.find(x => x.slug === 'alpine') || cases[0];
+const durasiNum = parseInt((c?.durasi || '').match(/\d+/)?.[0] || '0') || 0;
+const durasiSuf = (c?.durasi || '').replace(/\d+/, '').trim();
+const luasNum = parseInt((c?.luas || '').match(/\d+/)?.[0] || '0') || 0;
+const luasSuf = (c?.luas || '').replace(/\d+/, '').trim();
+const budgetNum = parseInt((c?.budget || '').match(/\d+/)?.[0] || '0') || 0;
+const budgetSuf = (c?.budget || '').replace(/\d+/, '').trim();
 ---
+
 <section id="case-detail" class="scroll-mt-20 py-16 md:py-24 lg:py-32 px-6 lg:px-16 bg-offwhite">
   <div class="max-w-7xl mx-auto">
-    <h1 id="cd-title" class="font-serif text-3xl md:text-5xl lg:text-6xl text-espresso uppercase mb-4">The Alpine Retreat</h1>
-    <p id="cd-description" class="text-lg max-w-2xl mb-12">A harmonious blend of modern architecture and mountainous landscape.</p>
+    <h1 id="cd-title" class="font-serif text-3xl md:text-5xl lg:text-6xl text-espresso uppercase mb-4">{c?.title}</h1>
+    <p id="cd-description" class="text-lg max-w-2xl mb-12">{c?.description}</p>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
       <div class="relative rounded-3xl overflow-hidden h-64 md:h-80 lg:h-96">
-        <img id="cd-before-img" src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Before renovation" class="w-full h-full object-cover grayscale">
+        <img id="cd-before-img" src={c?.before_image} alt={c?.before_alt} class="w-full h-full object-cover grayscale">
         <div class="absolute top-4 left-4 bg-black/50 text-white px-4 py-2 rounded-full text-sm">Before</div>
       </div>
       <div class="relative rounded-3xl overflow-hidden h-64 md:h-80 lg:h-96">
-        <img id="cd-after-img" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="After renovation" class="w-full h-full object-cover">
+        <img id="cd-after-img" src={c?.after_image} alt={c?.after_alt} class="w-full h-full object-cover">
         <div class="absolute top-4 left-4 bg-terracotta text-white px-4 py-2 rounded-full text-sm">After</div>
       </div>
     </div>
 
     <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl max-w-2xl mx-auto -mt-8 md:-mt-32 relative z-10 mb-16 border border-gray-100">
       <div class="grid grid-cols-3 gap-3 md:gap-6 text-center">
-        <div><p class="text-[10px] md:text-xs uppercase tracking-widest text-warmgrey mb-1">Durasi</p><p id="cd-durasi" class="font-serif text-lg md:text-2xl text-espresso"><span class="cd-durasi-num count-up-value" data-count="8">0</span> <span class="cd-durasi-suf">Bulan</span></p></div>
-        <div><p class="text-[10px] md:text-xs uppercase tracking-widest text-warmgrey mb-1">Luas</p><p id="cd-luas" class="font-serif text-lg md:text-2xl text-espresso"><span class="cd-luas-num count-up-value" data-count="450">0</span> <span class="cd-luas-suf">m²</span></p></div>
-        <div><p class="text-[10px] md:text-xs uppercase tracking-widest text-warmgrey mb-1">Budget</p><p id="cd-budget" class="font-serif text-lg md:text-2xl text-espresso">$<span class="cd-budget-num count-up-value" data-count="350">0</span><span class="cd-budget-suf">k</span></p></div>
+        <div><p class="text-[10px] md:text-xs uppercase tracking-widest text-warmgrey mb-1">Durasi</p><p id="cd-durasi" class="font-serif text-lg md:text-2xl text-espresso"><span class="cd-durasi-num count-up-value" data-count={durasiNum}>0</span> <span class="cd-durasi-suf">{durasiSuf}</span></p></div>
+        <div><p class="text-[10px] md:text-xs uppercase tracking-widest text-warmgrey mb-1">Luas</p><p id="cd-luas" class="font-serif text-lg md:text-2xl text-espresso"><span class="cd-luas-num count-up-value" data-count={luasNum}>0</span> <span class="cd-luas-suf">{luasSuf}</span></p></div>
+        <div><p class="text-[10px] md:text-xs uppercase tracking-widest text-warmgrey mb-1">Budget</p><p id="cd-budget" class="font-serif text-lg md:text-2xl text-espresso">$<span class="cd-budget-num count-up-value" data-count={budgetNum}>0</span><span class="cd-budget-suf">{budgetSuf}</span></p></div>
       </div>
     </div>
 
     <div class="text-center max-w-3xl mx-auto">
-      <p id="cd-quote" class="font-serif text-xl md:text-3xl italic text-espresso leading-relaxed">"RANTY tidak hanya membangun rumah, mereka menciptakan ruang di mana kenangan keluarga kami akan tumbuh."</p>
-      <p id="cd-quote-author" class="mt-6 font-bold text-espresso">— Mr. & Mrs. Smith</p>
+      <p id="cd-quote" class="font-serif text-xl md:text-3xl italic text-espresso leading-relaxed">{c?.quote}</p>
+      <p id="cd-quote-author" class="mt-6 font-bold text-espresso">{c?.quote_author}</p>
     </div>
   </div>
 </section>
 
+<script type="application/json" id="cases-data" set:html={JSON.stringify(cases)}></script>
+
 <script>
   import gsap from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  import { caseData } from '../data/siteData';
+  import type { Case } from '../types/cms';
 
   gsap.registerPlugin(ScrollTrigger);
+
+  const casesData = document.getElementById('cases-data');
+  const caseMap: Record<string, Case> = {};
+  if (casesData) {
+    try {
+      const list: Case[] = JSON.parse(casesData.textContent || '[]');
+      list.forEach(c => { caseMap[c.slug] = c; });
+    } catch {}
+  }
 
   function animateCountUp(el: HTMLElement, target: number, suffix = '', prefix = '') {
     const obj = { val: 0 };
@@ -51,20 +74,19 @@
   }
 
   function loadCaseDetail(key: string) {
-    const data = caseData[key];
+    const data = caseMap[key];
     if (!data) return;
 
     document.getElementById('cd-title')!.textContent = data.title;
     document.getElementById('cd-description')!.textContent = data.description;
     document.getElementById('cd-quote')!.textContent = data.quote;
-    document.getElementById('cd-quote-author')!.textContent = data.quoteAuthor;
+    document.getElementById('cd-quote-author')!.textContent = data.quote_author;
 
     const beforeImg = document.getElementById('cd-before-img') as HTMLImageElement;
     const afterImg = document.getElementById('cd-after-img') as HTMLImageElement;
-    if (beforeImg) { beforeImg.src = data.beforeImage; beforeImg.alt = data.beforeAlt; }
-    if (afterImg) { afterImg.src = data.afterImage; afterImg.alt = data.afterAlt; }
+    if (beforeImg) { beforeImg.src = data.before_image; beforeImg.alt = data.before_alt; }
+    if (afterImg) { afterImg.src = data.after_image; afterImg.alt = data.after_alt; }
 
-    // Parse durasi
     const durasiMatch = data.durasi.match(/(\d+)/);
     const durasiNum = durasiMatch ? parseInt(durasiMatch[1]) : 0;
     const durasiSuf = data.durasi.replace(/\d+/, '').trim();
@@ -73,7 +95,6 @@
     if (durasiNumEl) animateCountUp(durasiNumEl, durasiNum);
     if (durasiSufEl) durasiSufEl.textContent = durasiSuf;
 
-    // Parse luas
     const luasMatch = data.luas.match(/(\d+)/);
     const luasNum = luasMatch ? parseInt(luasMatch[1]) : 0;
     const luasSuf = data.luas.replace(/\d+/, '').trim();
@@ -82,7 +103,6 @@
     if (luasNumEl) animateCountUp(luasNumEl, luasNum);
     if (luasSufEl) luasSufEl.textContent = luasSuf;
 
-    // Parse budget
     const budgetMatch = data.budget.match(/(\d+)/);
     const budgetNum = budgetMatch ? parseInt(budgetMatch[1]) : 0;
     const budgetSuf = data.budget.replace(/\d+/, '').trim();

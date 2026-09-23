@@ -1,10 +1,8 @@
 ---
-const cases = [
-  { key: 'alpine', name: 'The Alpine Retreat', category: 'residential', region: 'Residential • Switzerland', img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'The Alpine Retreat house exterior' },
-  { key: 'coastal', name: 'Coastal Villa', category: 'residential', region: 'Residential • Bali', img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Coastal Villa with ocean view' },
-  { key: 'techhub', name: 'Tech Hub Office', category: 'commercial', region: 'Commercial • Jakarta', img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Tech Hub Office with open workspace' },
-  { key: 'loftcase', name: 'Minimalist Loft', category: 'interior', region: 'Interior • Singapore', img: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Minimalist Loft interior' }
-];
+import { getCases } from '../lib/cms';
+import type { Case } from '../types/cms';
+
+const cases = await getCases();
 ---
 
 <section id="cases" class="scroll-mt-20 py-24 md:py-32 px-6 lg:px-16 bg-white">
@@ -19,13 +17,13 @@ const cases = [
       <button data-filter="interior" data-target="cases" class="filter-pill px-6 py-2 rounded-full border border-gray-300 text-espresso text-sm font-medium hover:bg-white transition">Interior</button>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 cases-grid">
+    <div id="cases-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 cases-grid">
       {cases.map((c) => (
-        <a href="#case-detail" data-category={c.category} data-key={c.key} class="case-card group cursor-pointer block">
+        <a href="#case-detail" data-category={c.category} data-key={c.slug} class="case-card group cursor-pointer block">
           <div class="rounded-3xl overflow-hidden h-[220px] md:h-[320px] lg:h-[400px] mb-4 relative">
-            <img src={c.img} alt={c.alt} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <img src={c.after_image} alt={c.after_alt} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
           </div>
-          <h3 class="font-serif text-2xl text-espresso group-hover:text-terracotta transition-colors">{c.name}</h3>
+          <h3 class="font-serif text-2xl text-espresso group-hover:text-terracotta transition-colors">{c.title}</h3>
           <p class="text-sm mt-1 text-warmgrey">{c.region}</p>
         </a>
       ))}
