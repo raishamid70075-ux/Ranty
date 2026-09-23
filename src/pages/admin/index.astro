@@ -281,6 +281,7 @@ import Layout from '../../layouts/Layout.astro';
 
   function openEditor(type, item = null) {
     editorPanel?.classList.remove('hidden');
+    editorPanel?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     (document.getElementById('editor-type') as HTMLInputElement).value = type;
     (document.getElementById('editor-id') as HTMLInputElement).value = item?.id || '';
     if (editorTitle) editorTitle.textContent = item ? `Edit ${type}` : `Add ${type}`;
