@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+@theme {
+  --color-espresso: #2C1E16;
+  --color-warmgrey: #6B6560;
+  --color-offwhite: #F4F2EE;
+  --color-terracotta: #C27A5E;
+  --color-terracotta-deep: #A85F43;
+  --color-clay-light: #E8A98E;
+  --color-darkbrown: #1F1815;
+}
+
 :root {
   --espresso: #2C1E16;
   --warmgrey: #6B6560;
